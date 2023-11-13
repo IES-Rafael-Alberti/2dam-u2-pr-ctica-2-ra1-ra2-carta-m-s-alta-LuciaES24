@@ -2,32 +2,35 @@ package com.lespsan543.cartas.Clases
 
 class Baraja {
 
-    companion object{
-        var listaCartas = ArrayList<Carta>()
+    var listaCartas = ArrayList<Carta>()
 
-        fun crearBaraja(){
+    companion object{
+        var baraja = Baraja()
+
+        fun crearBaraja() : ArrayList<Carta> {
             val listaNaipes = listOf("AS","DOS","TRES","CUATRO","CINCO","SEIS","OCHO","NUEVE","DIEZ","VALET","DAME","ROY")
             for (i in 1..13){
-                listaCartas.add(Carta(listaNaipes[i-1],"CORAZONES",0,0,i))
+                baraja.listaCartas.add(Carta(listaNaipes[i-1],"CORAZONES",0,0,i))
             }
             for (i in 1..13){
-                listaCartas.add(Carta(listaNaipes[i-1],"TREBOLES",0,0,i))
+                baraja.listaCartas.add(Carta(listaNaipes[i-1],"TREBOLES",0,0,i))
             }
             for (i in 1..13){
-                listaCartas.add(Carta(listaNaipes[i-1],"PICAS",0,0,i))
+                baraja.listaCartas.add(Carta(listaNaipes[i-1],"PICAS",0,0,i))
             }
             for (i in 1..13){
-                listaCartas.add(Carta(listaNaipes[i-1],"DIAMANTES",0,0,i))
+                baraja.listaCartas.add(Carta(listaNaipes[i-1],"DIAMANTES",0,0,i))
             }
+            return baraja.listaCartas
         }
 
         fun barajar(){
-            listaCartas.shuffle()
+            baraja.listaCartas.shuffle()
         }
 
         fun dameCarta() : Carta{
-            val ultimaCarta = listaCartas.get(listaCartas.size)
-            listaCartas.dropLast(listaCartas.size)
+            val ultimaCarta = baraja.listaCartas.get(baraja.listaCartas.size)
+            baraja.listaCartas.dropLast(baraja.listaCartas.size)
             return ultimaCarta
         }
     }

@@ -35,17 +35,6 @@ import com.lespsan543.cartas.Clases.Carta
 fun Inicio(){
     var carta by rememberSaveable { mutableStateOf(Carta("CERO","ABAJO",0,0,0)) }
 
-    MostrarCarta(
-        carta,
-        newCarta = { carta = Baraja.dameCarta() }
-    )
-}
-
-@Composable
-fun MostrarCarta(
-    carta: Carta,
-    newCarta : (Carta) -> Unit
-){
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -55,7 +44,7 @@ fun MostrarCarta(
         Image(painter = painterResource(id = recuperarId(carta = carta)),
             contentDescription = "Carta boca abajo")
         Row(Modifier.padding(top = 24.dp)) {
-            Button(onClick = { newCarta(carta) },
+            Button(onClick = { carta = Baraja.dameCarta() },
                 modifier = Modifier
                     .height(50.dp)
                     .width(150.dp)
@@ -68,8 +57,7 @@ fun MostrarCarta(
             ) {
                 Text(text = "Dame carta")
             }
-            Button(onClick = { Baraja.crearBaraja()
-                             Baraja.barajar()},
+            Button(onClick = { Baraja.crearBaraja() },
                 modifier = Modifier
                     .height(50.dp)
                     .width(150.dp)
@@ -85,6 +73,7 @@ fun MostrarCarta(
         }
     }
 }
+
 
 @SuppressLint("DiscouragedApi")
 @Composable
