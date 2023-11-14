@@ -33,8 +33,26 @@ import com.lespsan543.cartas.Clases.Carta
 @Preview(showBackground = true)
 @Composable
 fun Inicio(){
-    var carta by rememberSaveable { mutableStateOf(Carta("CERO","ABAJO",0,0,0)) }
+    var carta by rememberSaveable { mutableStateOf(Carta("","",0,0,0)) }
+    val cartaAbajo = Carta("CERO","ABAJO",0,0,0)
+    val show by rememberSaveable { mutableStateOf(true) }
 
+    PantallaCartas(carta = carta,
+        onChange = { carta = Baraja.dameCarta()},
+        show = {
+            if (show){
+                carta = cartaAbajo
+            }
+        }
+    )
+}
+
+@Composable
+fun PantallaCartas(
+    carta: Carta,
+    onChange : (Carta) -> Unit,
+    show : (Boolean) -> Unit
+){
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -44,7 +62,8 @@ fun Inicio(){
         Image(painter = painterResource(id = recuperarId(carta = carta)),
             contentDescription = "Carta boca abajo")
         Row(Modifier.padding(top = 24.dp)) {
-            Button(onClick = { carta = Baraja.dameCarta() },
+            Button(onClick = { onChange(carta)
+                             show(false)},
                 modifier = Modifier
                     .height(50.dp)
                     .width(150.dp)
@@ -57,7 +76,8 @@ fun Inicio(){
             ) {
                 Text(text = "Dame carta")
             }
-            Button(onClick = { Baraja.crearBaraja() },
+            Button(onClick = { Baraja.crearBaraja()
+                             show(true)},
                 modifier = Modifier
                     .height(50.dp)
                     .width(150.dp)
@@ -74,10 +94,10 @@ fun Inicio(){
     }
 }
 
-
 @SuppressLint("DiscouragedApi")
 @Composable
 fun recuperarId(carta: Carta): Int {
     val context = LocalContext.current
-    return context.resources.getIdentifier(carta.nombre.toLowerCase()+carta.idDrawable, "drawable", context.packageName)
+    val nombre = carta.palo.toLowerCase()+carta.idDrawable
+    return context.resources.getIdentifier(nombre, "drawable", context.packageName)
 }

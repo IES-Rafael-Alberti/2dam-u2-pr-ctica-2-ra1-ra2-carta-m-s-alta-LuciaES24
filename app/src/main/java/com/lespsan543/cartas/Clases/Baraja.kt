@@ -9,17 +9,17 @@ class Baraja {
 
         fun crearBaraja() : ArrayList<Carta> {
             val listaNaipes = listOf("AS","DOS","TRES","CUATRO","CINCO","SEIS","OCHO","NUEVE","DIEZ","VALET","DAME","ROY")
-            for (i in 1..13){
-                baraja.listaCartas.add(Carta(listaNaipes[i-1],"CORAZONES",0,0,i))
+            for (i in 0..12-1){
+                baraja.listaCartas.add(Carta(listaNaipes[i],"CORAZONES",0,0,i+1))
             }
-            for (i in 1..13){
-                baraja.listaCartas.add(Carta(listaNaipes[i-1],"TREBOLES",0,0,i))
+            for (i in 0..12-1){
+                baraja.listaCartas.add(Carta(listaNaipes[i],"TREBOLES",0,0,i+1))
             }
-            for (i in 1..13){
-                baraja.listaCartas.add(Carta(listaNaipes[i-1],"PICAS",0,0,i))
+            for (i in 0..12-1){
+                baraja.listaCartas.add(Carta(listaNaipes[i],"PICAS",0,0,i+1))
             }
-            for (i in 1..13){
-                baraja.listaCartas.add(Carta(listaNaipes[i-1],"DIAMANTES",0,0,i))
+            for (i in 0..12-1){
+                baraja.listaCartas.add(Carta(listaNaipes[i],"DIAMANTES",0,0,i+1))
             }
             return baraja.listaCartas
         }
@@ -29,8 +29,8 @@ class Baraja {
         }
 
         fun dameCarta() : Carta{
-            val ultimaCarta = baraja.listaCartas.get(baraja.listaCartas.size)
-            baraja.listaCartas.dropLast(baraja.listaCartas.size)
+            val ultimaCarta = baraja.listaCartas.last()
+            baraja.listaCartas.dropLast(1)
             return ultimaCarta
         }
     }
